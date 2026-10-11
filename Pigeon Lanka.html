@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pigeon Lanka</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--g:#1f6b45;--g2:#e3f1e8;--o:#e8751a;--bg:#f7faf6;--card:#fff;--ink:#14231a;--mut:#5d6f63;--ln:#dbe5dd;--bad:#b3261e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1612;--card:#17221b;--ink:#e9f2ec;--mut:#9bb0a2;--ln:#2a3a30;--g2:#1d3327;--g:#4fb37f}}
+:root[data-theme=dark]{--bg:#0e1612;--card:#17221b;--ink:#e9f2ec;--mut:#9bb0a2;--ln:#2a3a30;--g2:#1d3327;--g:#4fb37f}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Bricolage Grotesque',system-ui,sans-serif;padding-bottom:84px}
+a{color:inherit;text-decoration:none}
+header{display:flex;gap:10px;align-items:center;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--ln);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.logo{font-weight:800;font-size:18px;color:var(--g);white-space:nowrap}.logo b{color:var(--o)}
+header form{flex:1;display:flex}header input{width:100%}
+main{max-width:980px;margin:0 auto;padding:16px 14px}
+h1{font-size:34px;line-height:1.1;margin:0 0 8px;font-weight:800}h2{font-size:21px;margin:22px 0 10px}h3{margin:0}
+input,select,textarea,button{font:inherit;color:inherit}
+input,select,textarea{padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--card);width:100%}
+label{display:block;font-size:14px;color:var(--mut);margin:10px 0 4px}
+.btn{background:var(--g);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;display:inline-block;text-align:center}
+.btn.o{background:var(--o)}.btn.l{background:var(--g2);color:var(--g)}.btn.d{background:none;color:var(--bad);border:1px solid var(--bad)}.btn.s{padding:6px 11px;font-size:14px}
+:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;overflow:hidden}.pad{padding:14px}
+.ph{aspect-ratio:4/3;background:var(--g2);display:grid;place-items:center;font-size:44px;background-size:cover;background-position:center}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g)}.badge.o{background:#fde6d1;color:#a54a05}.badge.r{background:#fbdcd9;color:var(--bad)}
+.code{font-weight:800;color:var(--g);letter-spacing:.3px}
+.hero{background:var(--g);color:#fff;border-radius:18px;padding:26px 20px;margin-bottom:14px}.hero p{max-width:520px;opacity:.92}
+.hero .btn.l{background:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.stats div{background:rgba(255,255,255,.14);border-radius:10px;padding:8px;font-size:12px}.stats b{display:block;font-size:22px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
+.tl{border-left:3px solid var(--g2);margin-left:6px;padding-left:14px}.tl div{margin-bottom:12px;position:relative}.tl div:before{content:"";position:absolute;left:-21px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--o)}
+.tl small{color:var(--mut)}
+nav.bot{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--ln);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav.bot a{flex:1;text-align:center;padding:9px 0;font-size:12px;color:var(--mut)}nav.bot a span{display:block;font-size:20px}nav.bot a.on{color:var(--g);font-weight:600}
+.fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:6;border-radius:99px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(130px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:9;display:none;max-width:90%}
+.steps{display:flex;gap:6px;margin-bottom:12px}.steps i{flex:1;height:5px;border-radius:9px;background:var(--ln)}.steps i.on{background:var(--o)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{text-align:center;color:var(--mut);padding:30px 10px}
+.note{font-size:13px;color:var(--mut)}
+@media(max-width:520px){h1{font-size:28px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<header><a class="logo" href="#/">🕊️ Pigeon<b>Lanka</b></a>
+<form onsubmit="return doSearch(event)"><input id="q" placeholder="Search PL-2026-000001 or ring LK-45821" aria-label="Search"></form>
+<select id="lang" style="width:auto" aria-label="Language" onchange="setLang(this.value)"><option value="en">EN</option><option value="si">සිං</option><option value="ta">தமி</option></select></header>
+<main id="app"></main><div id="toast" role="status"></div>
+<a class="btn o fab" href="#/register">+ Register pigeon</a>
+<nav class="bot" id="nav"></nav>
+<script>
+/* ===== Data layer (localStorage now; swap these functions for Supabase calls later) ===== */
+const KEY='pl_db_v1', YEAR=2026;
+const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const day=d=>new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const now=()=>new Date().toISOString();
+const uid=p=>p+Math.random().toString(36).slice(2,9);
+/* i18n structure: add translations in T.si / T.ta; missing keys fall back to English */
+const T={en:{home:'Home',pigeons:'Pigeons',market:'Market',inbox:'Requests',profile:'Profile'},si:{home:'මුල් පිටුව',pigeons:'පරෙවියන්',market:'වෙළඳපොළ',inbox:'ඉල්ලීම්',profile:'පැතිකඩ'},ta:{home:'முகப்பு',pigeons:'புறாக்கள்',market:'சந்தை',inbox:'கோரிக்கைகள்',profile:'சுயவிவரம்'}};
+let lang=localStorage.getItem('pl_lang')||'en';const t=k=>(T[lang]||{})[k]||T.en[k]||k;
+function setLang(l){lang=l;try{localStorage.setItem('pl_lang',l)}catch(_){}render()}
+function seed(){const u=(id,name,email,loc)=>({id,name,email,phone:'07'+Math.floor(1e7+Math.random()*9e7),loc,pw:'demo123',role:'user',demo:true});
+const p=(n,owner,ring,breed,color,sex,purpose,v,st='ACTIVE')=>({id:'p'+n,code:`PL-${YEAR}-${String(n).padStart(6,'0')}`,owner,ring,breed,color,sex,purpose,verified:v,status:st,health:'Healthy',vacc:'Up to date',dob:'2025-02-10',weight:420,created:now(),demo:true});
+const d={seq:4,users:[u('u1','Nuwan Perera','nuwan@demo.lk','Colombo'),u('u2','Kamal Silva','kamal@demo.lk','Kandy'),u('u3','Sanduni Fernando','sanduni@demo.lk','Galle')],
+pigeons:[p(1,'u1','LK-45821','Racing Homer','Blue Bar','Male','Racing',true),p(2,'u2','LK-45822','King Pigeon','White','Female','Breeding',true,'FOR SALE'),p(3,'u3','LK-50310','Fantail','Red Check','Male','Show',false,'FOR SALE'),p(4,'u1','LK-50311','Racing Homer','Chequer','Female','Racing',false)],
+history:[],medical:[],ownership:[],listings:[],enq:[],session:null};
+d.pigeons.forEach(g=>d.history.push({id:uid('h'),pid:g.id,type:'Registration',title:'Pigeon registered',desc:'Registered on Pigeon Lanka (demo data)',date:g.created}));
+d.listings=[{id:'l1',pid:'p2',seller:'u2',price:45000,desc:'Proven breeder, calm temperament.',loc:'Kandy',status:'OPEN',demo:true},{id:'l2',pid:'p3',seller:'u3',price:28000,desc:'Show quality fantail, good posture.',loc:'Galle',status:'OPEN',demo:true}];
+d.medical=[{id:uid('m'),pid:'p1',type:'Vaccination',med:'Paramyxovirus vaccine',notes:'Completed. Follow product label / vet advice.',date:'2026-09-05',vet:'',demo:true}];
+d.history.push({id:uid('h'),pid:'p1',type:'Vaccination',title:'Vaccination record added',desc:'Paramyxovirus vaccine',date:'2026-09-05T08:00:00Z'});
+return d}
+let db;try{db=JSON.parse(localStorage.getItem(KEY))}catch(_){}if(!db)db=seed();
+if(!db.users.some(u=>u.role==='admin')){db.users.push({id:'admin1',name:'Pigeon Lanka Admin',email:'admin@pigeonlanka.lk',phone:'0110000000',loc:'Colombo',pw:'admin123',role:'admin',demo:true})}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(_){toast('Storage is full or unavailable in this browser.')}};
+const me=()=>db.users.find(x=>x.id===db.session);const user=id=>db.users.find(x=>x.id===id);const pg=id=>db.pigeons.find(x=>x.id===id);
+const find=q=>{q=q.trim().toUpperCase();return db.pigeons.find(x=>x.code===q||x.ring.toUpperCase()===q)};
+function hist(pid,type,title,desc){db.history.push({id:uid('h'),pid,type,title,desc:desc||'',date:now()})}
+function note(u,msg){/* notifications are shown as toasts + history; Supabase version writes to notifications table */}
+const mask=n=>{const p=(n||'').split(' ');return p[0]+(p[1]?' '+p[1][0]+'.':'')};
+function toast(m){const x=document.getElementById('toast');x.textContent=m;x.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>x.style.display='none',3200)}
+function need(){if(!me()){toast('Please log in first.');location.hash='#/login';return false}return true}
+
+/* ===== Router ===== */
+const R={};let step=1,form={},filt='ALL';
+function render(){const h=(location.hash||'#/').slice(2).split('/');const f=R[h[0]||'home']||R.home;document.getElementById('app').innerHTML=f(decodeURIComponent(h[1]||''));
+const tabs=[['home','🏠','#/'],['mine','🕊️','#/mine'],['market','🛒','#/market'],['inbox','📩','#/inbox'],['me','👤',me()?'#/me':'#/login']];
+const cur=h[0]||'home';document.getElementById('nav').innerHTML=tabs.map(x=>`<a href="${x[2]}" class="${cur===x[0]?'on':''}"><span>${x[1]}</span>${t({home:'home',mine:'pigeons',market:'market',inbox:'inbox',me:'profile'}[x[0]])}</a>`).join('');
+document.querySelector('.fab').style.display=['register','login','signup'].includes(cur)?'none':'';
+const qr=document.getElementById('qr');if(qr&&window.QRCode){new QRCode(qr,{text:location.origin+location.pathname+'#/pigeon/'+qr.dataset.c,width:140,height:140})}window.scrollTo(0,0)}
+addEventListener('hashchange',render);
+function doSearch(ev){ev.preventDefault();const v=document.getElementById('q').value;if(!v.trim())return false;const g=find(v);if(g)location.hash='#/pigeon/'+g.code;else location.hash='#/market/'+encodeURIComponent(v);return false}
+
+/* ===== UI pieces ===== */
+const st=s=>`<span class="badge ${s==='LOST'||s==='DECEASED'?'r':s==='FOR SALE'?'o':''}">${s}</span>`;
+const ver=g=>g.verified?'<span class="badge">✔ Verified by Pigeon Lanka</span>':'<span class="badge" style="background:var(--ln);color:var(--mut)">Registered</span>';
+const pic=g=>g.photo?`<div class="ph" style="background-image:url(${g.photo})"></div>`:'<div class="ph">🕊️</div>';
+const pcard=(g,extra='')=>`<div class="card">${pic(g)}<div class="pad"><div class="code">${g.code}</div><div>${e(g.breed)} · ${e(g.color)}</div><div class="note">Ring ${e(g.ring)} · ${e(g.sex)}</div><div class="row" style="margin:8px 0">${st(g.status)}${g.verified?'<span class="badge">✔</span>':''}</div>${extra}</div></div>`;
+
+R.home=()=>{const sold=db.ownership.length,fs=db.listings.filter(l=>l.status==='OPEN');
+return `<div class="hero"><h1>Every Pigeon. One Identity.</h1><p>Register, manage, track, buy and sell pigeons with a trusted digital pigeon identity.</p>
+<div class="row"><a class="btn o" href="#/register">Register Your Pigeon</a><a class="btn l" href="#/market">Explore Marketplace</a></div>
+<div class="stats"><div><b>${db.pigeons.length}</b>Registered pigeons</div><div><b>${db.pigeons.filter(p=>p.verified).length}</b>Verified</div><div><b>${fs.length}</b>For sale</div><div><b>${sold}</b>Completed sales</div></div></div>
+<h2>How it works</h2><div class="grid">${['Create an account','Register your pigeon','Get a unique Pigeon Code','Keep history and medical records','Buy and sell with a clear ownership trail'].map((s,i)=>`<div class="card pad"><b>${i+1}.</b> ${s}</div>`).join('')}</div>
+<h2>Featured pigeons</h2><div class="grid">${fs.map(l=>{const g=pg(l.pid);return pcard(g,`<div><b>Rs ${l.price.toLocaleString()}</b></div><a class="btn s" style="margin-top:8px" href="#/pigeon/${g.code}">View</a>`)}).join('')||'<div class="empty">No listings yet.</div>'}</div>
+<p class="note">Demo data is flagged <code>demo:true</code> and can be removed. Store, lost-pigeon board and admin tools are not in this first build.</p>`};
+
+R.signup=()=>`<div class="card pad" style="max-width:420px;margin:auto"><h2 style="margin-top:0">Create your account</h2><form onsubmit="return signup(event)">
+<label>Full name</label><input id="n" required><label>Email</label><input id="em" type="email" required><label>Phone</label><input id="ph" required>
+<label>Location</label><input id="lo" required><label>Password</label><input id="pw" type="password" minlength="6" required><label>Confirm password</label><input id="pw2" type="password" required>
+<p><button class="btn" style="width:100%">Create account</button></p></form><p class="note">Demo mode: accounts live in this browser only. Supabase Auth replaces this with no UI changes.</p></div>`;
+function signup(ev){ev.preventDefault();const v=i=>document.getElementById(i).value.trim();
+if(v('pw')!==document.getElementById('pw2').value)return toast('Passwords do not match.'),false;
+if(db.users.some(u=>u.email.toLowerCase()===v('em').toLowerCase()))return toast('An account already exists with this email.'),false;
+const u={id:uid('u'),name:v('n'),email:v('em'),phone:v('ph'),loc:v('lo'),pw:document.getElementById('pw').value,role:'user'};db.users.push(u);db.session=u.id;save();toast('Welcome to Pigeon Lanka!');location.hash='#/mine';return false}
+R.login=()=>`<div class="card pad" style="max-width:420px;margin:auto"><h2 style="margin-top:0">Log in</h2><form onsubmit="return login(event)">
+<label>Email</label><input id="em" type="email" required><label>Password</label><input id="pw" type="password" required>
+<p><button class="btn" style="width:100%">Log in</button></p></form>
+<p class="note">Demo accounts: nuwan@demo.lk, kamal@demo.lk, sanduni@demo.lk — password demo123. Admin: admin@pigeonlanka.lk / admin123.</p><p><a href="#/signup" style="color:var(--g)"><b>Create an account</b></a></p></div>`;
+function login(ev){ev.preventDefault();const u=db.users.find(x=>x.email.toLowerCase()===document.getElementById('em').value.trim().toLowerCase()&&x.pw===document.getElementById('pw').value);
+if(!u)return toast('Email or password is incorrect.'),false;
+if(u.suspended)return toast('This account has been suspended. Contact Pigeon Lanka support.'),false;db.session=u.id;save();location.hash='#/mine';return false}
+function logout(){db.session=null;save();location.hash='#/'}
+
+R.mine=()=>{if(!me())return R.login();const mine=db.pigeons.filter(p=>p.owner===db.session);const fl=['ALL','ACTIVE','FOR SALE','LOST','DECEASED'];
+const list=mine.filter(p=>filt==='ALL'||p.status===filt);
+return `<div class="row sp"><h2 style="margin:0">My pigeons</h2><a class="btn o s" href="#/register">+ Register new pigeon</a></div>
+<div class="row" style="margin:12px 0">${fl.map(f=>`<button class="btn s ${filt===f?'':'l'}" onclick="filt='${f}';render()">${f}</button>`).join('')}</div>
+<div class="grid">${list.map(g=>pcard(g,`<a class="btn s" href="#/pigeon/${g.code}">Open</a>`)).join('')}</div>${list.length?'':'<div class="empty">No pigeons here yet. Register your first pigeon to get a permanent Pigeon Code.</div>'}`};
+
+R.register=()=>{if(!me())return R.login();const f=form,S=['Identification','Details','Photo','Health'];
+const body=[`<label>Pigeon Code</label><input value="Assigned automatically on save" disabled><label>Leg ring number *</label><input id="ring" value="${e(f.ring)}" placeholder="LK-45821"><label>Ring colour</label><input id="rc" value="${e(f.rc)}">`,
+`<label>Breed *</label><input id="breed" value="${e(f.breed)}" placeholder="Racing Homer"><div class="two"><div><label>Colour *</label><input id="color" value="${e(f.color)}"></div><div><label>Sex</label><select id="sex">${['Male','Female','Unknown'].map(x=>`<option ${f.sex===x?'selected':''}>${x}</option>`).join('')}</select></div></div><div class="two"><div><label>Date of birth</label><input id="dob" type="date" value="${e(f.dob)}"></div><div><label>Weight (g)</label><input id="wt" type="number" value="${e(f.wt)}"></div></div><label>Purpose</label><select id="purpose">${['Racing','Breeding','Show','Pet','Other'].map(x=>`<option ${f.purpose===x?'selected':''}>${x}</option>`).join('')}</select>`,
+`<label>Main photo</label><input type="file" id="file" accept="image/*" onchange="photo(this)">${f.photo?`<div class="ph" style="margin-top:10px;background-image:url(${f.photo})"></div>`:''}<p class="note">Photos are resized and stored locally in demo mode; Supabase Storage in production.</p>`,
+`<label>Health status</label><select id="health">${['Healthy','Under treatment','Recovering'].map(x=>`<option ${f.health===x?'selected':''}>${x}</option>`).join('')}</select><label>Vaccination status</label><select id="vacc">${['Up to date','Due','Not vaccinated','Unknown'].map(x=>`<option ${f.vacc===x?'selected':''}>${x}</option>`).join('')}</select><label>Medical notes</label><textarea id="notes">${e(f.notes)}</textarea>`][step-1];
+return `<div class="card pad" style="max-width:520px;margin:auto"><h2 style="margin-top:0">Register pigeon — ${S[step-1]}</h2><div class="steps">${S.map((_,i)=>`<i class="${i<step?'on':''}"></i>`).join('')}</div>${body}
+<div class="row sp" style="margin-top:16px">${step>1?'<button class="btn l" onclick="nav(-1)">Back</button>':'<span></span>'}<button class="btn" onclick="nav(1)">${step===4?'Register pigeon':'Next'}</button></div></div>`};
+function grab(){['ring','rc','breed','color','sex','dob','wt','purpose','health','vacc','notes'].forEach(k=>{const x=document.getElementById(k);if(x)form[k]=x.value})}
+function photo(inp){const fl=inp.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),s=Math.min(1,480/im.width);c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);form.photo=c.toDataURL('image/jpeg',.7);render()};im.src=r.result};r.readAsDataURL(fl)}
+function nav(d){grab();const f=form;
+if(d>0&&step===1&&!(f.ring||'').trim())return toast('Please enter the leg ring number.');
+if(d>0&&step===1&&db.pigeons.some(p=>p.ring.toUpperCase()===f.ring.trim().toUpperCase()&&p.status!=='DECEASED'))return toast('An active pigeon is already registered with this leg ring number.');
+if(d>0&&step===2&&!(f.breed||'').trim()||d>0&&step===2&&!(f.color||'').trim())return toast('Please complete all required fields.');
+if(d>0&&step===4){const n=++db.seq,id='p'+n+uid('');const g={id,code:`PL-${YEAR}-${String(n).padStart(6,'0')}`,owner:db.session,ring:f.ring.trim(),rc:f.rc,breed:f.breed.trim(),color:f.color.trim(),sex:f.sex||'Male',dob:f.dob,weight:f.wt,purpose:f.purpose||'Racing',health:f.health||'Healthy',vacc:f.vacc||'Up to date',notes:f.notes,photo:f.photo,verified:false,status:'ACTIVE',created:now()};
+db.pigeons.push(g);hist(id,'Registration','Pigeon registered','Ring '+g.ring);save();form={};step=1;location.hash='#/pigeon/'+g.code;toast('Pigeon registered: '+g.code);return}
+step=Math.max(1,Math.min(4,step+d));render()}
+
+R.pigeon=code=>{const g=find(code);if(!g)return `<div class="empty">No pigeon found for “${e(code)}”.</div>`;const own=g.owner===db.session,o=user(g.owner);
+const H=db.history.filter(h=>h.pid===g.id).sort((a,b)=>b.date.localeCompare(a.date)),M=db.medical.filter(m=>m.pid===g.id).sort((a,b)=>b.date.localeCompare(a.date));
+const O=db.ownership.filter(x=>x.pid===g.id),lst=db.listings.find(l=>l.pid===g.id&&l.status==='OPEN');
+const nm=id=>own?user(id)?.name:'Owner '+(O.findIndex(x=>x.prev===id)+1||O.length+1);
+let acts='';if(own){acts=`<div class="row" style="margin-top:12px">${!lst&&g.status==='ACTIVE'?`<a class="btn o s" href="#/sell/${g.code}">List for sale</a>`:''}${g.status==='LOST'?`<button class="btn s" onclick="setSt('${g.id}','ACTIVE')">Mark found</button>`:g.status!=='DECEASED'?`<button class="btn d s" onclick="setSt('${g.id}','LOST')">Report lost</button><button class="btn d s" onclick="setSt('${g.id}','DECEASED')">Mark deceased</button>`:''}</div>`}
+return `<div class="card"><div class="row" style="align-items:flex-start;padding:14px;gap:16px"><div style="flex:1;min-width:230px">${pic(g)}</div><div style="flex:1;min-width:230px"><div class="note">PIGEON LANKA</div><div class="code" style="font-size:24px">${g.code}</div><h3>${e(g.breed)}</h3><div class="row" style="margin:8px 0">${st(g.status)}${ver(g)}</div>
+<div>Ring: <b>${e(g.ring)}</b></div><div>Colour: ${e(g.color)} · Sex: ${e(g.sex)} · Purpose: ${e(g.purpose)}</div><div>Health: ${e(g.health)} · Vaccination: ${e(g.vacc)}</div><div>Registered: ${day(g.created)}</div>
+<div>Owner: ${own?'You':e(mask(o?.name))}${own?'':' <span class="note">(contact details private)</span>'}</div>${lst?`<p><b>For sale: Rs ${lst.price.toLocaleString()}</b> <a class="btn s" href="#/enquire/${lst.id}">Make enquiry</a></p>`:''}${acts}
+<div id="qr" data-c="${g.code}" style="margin-top:12px;background:#fff;padding:8px;display:inline-block;border-radius:8px"></div><div class="note">Scan to open this profile.</div></div></div></div>
+<h2>Pigeon history</h2><div class="tl">${H.map(h=>`<div><b>${e(h.title)}</b> <small>${day(h.date)}</small><br><small>${e(h.desc)}</small></div>`).join('')}</div>
+<h2>Medical records</h2>${own?`<div class="card pad"><div class="two"><input id="mt" placeholder="Treatment / Vaccination"><input id="mm" placeholder="Medicine"></div><input id="mn" placeholder="Notes" style="margin-top:8px"><div class="row" style="margin-top:8px"><input id="md" type="date" style="width:auto"><button class="btn s" onclick="addMed('${g.id}')">Add record</button></div><p class="note">Use according to the product label or veterinary advice.</p></div>`:''}
+${M.map(m=>`<div class="card pad" style="margin-top:8px"><b>${e(m.type)}</b> · ${day(m.date)}<br>Medicine: ${e(m.med||'—')}<br><span class="note">${e(m.notes)}</span></div>`).join('')||'<div class="empty">No medical records yet.</div>'}
+<h2>Ownership history</h2>${O.length?`<div class="tl">${O.map(x=>`<div><b>${e(nm(x.prev))} → ${e(nm(x.next))}</b> <small>${day(x.date)}</small><br><small>Ref ${x.ref} · ${x.status}</small></div>`).join('')}</div>`:'<div class="note">No ownership changes. Original registrant is the current owner.</div>'}`};
+function addMed(pid){const v=i=>document.getElementById(i).value.trim();if(!v('mt'))return toast('Please complete all required fields.');
+db.medical.push({id:uid('m'),pid,type:v('mt'),med:v('mm'),notes:v('mn'),date:v('md')||now().slice(0,10)});hist(pid,'Medical',v('mt')+' record added',v('mm'));save();toast('Medical record added.');render()}
+function setSt(pid,s){const g=pg(pid);if(g.owner!==db.session)return toast('You are not the registered owner of this pigeon.');
+if(s!=='ACTIVE'&&!confirm(`Mark this pigeon as ${s}?`))return;g.status=s;
+if(s!=='ACTIVE')db.listings.forEach(l=>{if(l.pid===pid&&l.status==='OPEN'){l.status='CANCELLED'}});
+hist(pid,{LOST:'Lost',ACTIVE:'Found',DECEASED:'Deceased'}[s],{LOST:'Reported lost',ACTIVE:'Marked as found',DECEASED:'Marked deceased'}[s]);save();toast('Status updated: '+s);render()}
+
+R.sell=code=>{if(!me())return R.login();const g=find(code);if(!g)return '<div class="empty">Pigeon not found.</div>';
+if(g.owner!==db.session)return '<div class="empty">You are not the registered owner of this pigeon.</div>';
+if(g.status==='DECEASED')return '<div class="empty">A deceased pigeon cannot be listed for sale.</div>';
+return `<div class="card pad" style="max-width:480px;margin:auto"><h2 style="margin-top:0">List ${g.code} for sale</h2><label>Price (Rs)</label><input id="pr" type="number" min="1"><label>Location</label><input id="lo" value="${e(me().loc)}"><label>Description</label><textarea id="de"></textarea>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="cf" style="width:auto"> I confirm that I am the current owner of this pigeon.</label>
+<p><button class="btn o" onclick="listIt('${g.id}')">Publish listing</button></p></div>`};
+function listIt(pid){const g=pg(pid),v=i=>document.getElementById(i).value.trim();
+if(g.owner!==db.session)return toast('You are not the registered owner of this pigeon.');if(g.status!=='ACTIVE')return toast('Only active pigeons can be listed.');
+if(!document.getElementById('cf').checked||!(+v('pr')>0))return toast('Please set a price and confirm ownership.');
+db.listings.push({id:uid('l'),pid,seller:db.session,price:+v('pr'),desc:v('de'),loc:v('lo'),status:'OPEN'});g.status='FOR SALE';hist(pid,'Sale','Listed for sale','Rs '+(+v('pr')).toLocaleString());save();toast('Listed for sale.');location.hash='#/pigeon/'+g.code}
+
+R.market=q=>{const L=db.listings.filter(l=>l.status==='OPEN');return `<h2 style="margin-top:0">Pigeon marketplace</h2><div class="two"><input id="mq" placeholder="Pigeon ID, ring, breed, seller" value="${e(q)}" oninput="mfilter()"><select id="mp" onchange="mfilter()"><option value="">Any purpose</option>${['Racing','Breeding','Show','Pet'].map(x=>`<option>${x}</option>`).join('')}</select></div>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mv" style="width:auto" onchange="mfilter()"> Verified only</label><div class="grid" id="ml" style="margin-top:10px">${mlist(L,q,'',false)}</div>`};
+function mlist(L,q,p,v){q=(q||'').toLowerCase();const r=L.filter(l=>{const g=pg(l.pid),s=user(l.seller);return(!q||[g.code,g.ring,g.breed,s?.name].join(' ').toLowerCase().includes(q))&&(!p||g.purpose===p)&&(!v||g.verified)});
+return r.map(l=>{const g=pg(l.pid);return pcard(g,`<div><b>Rs ${l.price.toLocaleString()}</b> · ${e(l.loc)}</div><div class="note">Seller: ${e(mask(user(l.seller)?.name))}</div><div class="row" style="margin-top:8px"><a class="btn s" href="#/pigeon/${g.code}">View</a><a class="btn o s" href="#/enquire/${l.id}">Make enquiry</a></div>`)}).join('')||'<div class="empty">No pigeons match. Try clearing a filter.</div>'}
+function mfilter(){const g=i=>document.getElementById(i);g('ml').innerHTML=mlist(db.listings.filter(l=>l.status==='OPEN'),g('mq').value,g('mp').value,g('mv').checked)}
+
+R.enquire=id=>{if(!me())return R.login();const l=db.listings.find(x=>x.id===id);if(!l||l.status!=='OPEN')return '<div class="empty">This listing is no longer available.</div>';const g=pg(l.pid);
+if(l.seller===db.session)return '<div class="empty">This is your own listing.</div>';
+return `<div class="card pad" style="max-width:480px;margin:auto"><h2 style="margin-top:0">Request to buy ${g.code}</h2><p>${e(g.breed)} · Rs ${l.price.toLocaleString()}</p><label>Message to seller</label><textarea id="em">Hello, I am interested in this pigeon.</textarea>
+<p><button class="btn o" onclick="sendEnq('${l.id}')">Send purchase request</button></p><p class="note">Ownership only transfers after the seller accepts and confirms completion.</p></div>`};
+function sendEnq(id){const l=db.listings.find(x=>x.id===id);if(db.enq.some(x=>x.lid===id&&x.buyer===db.session&&['Pending','Accepted'].includes(x.status)))return toast('You already have an open request for this pigeon.');
+db.enq.push({id:uid('e'),lid:id,buyer:db.session,seller:l.seller,msg:document.getElementById('em').value,status:'Pending',date:now()});save();toast('Request sent to the seller.');location.hash='#/inbox'}
+
+R.inbox=()=>{if(!me())return R.login();const mineE=db.enq.filter(x=>x.seller===db.session||x.buyer===db.session).sort((a,b)=>b.date.localeCompare(a.date));
+return `<h2 style="margin-top:0">Purchase requests</h2>${mineE.map(x=>{const l=db.listings.find(z=>z.id===x.lid),g=pg(l.pid),sell=x.seller===db.session;
+return `<div class="card pad" style="margin-bottom:10px"><div class="row sp"><a class="code" href="#/pigeon/${g.code}">${g.code}</a><span class="badge ${x.status==='Cancelled'?'r':'o'}">${x.status}</span></div>
+<div>${sell?'Buyer: '+e(user(x.buyer)?.name):'Seller: '+e(mask(user(x.seller)?.name))} · Rs ${l.price.toLocaleString()}</div><div class="note">“${e(x.msg)}”</div>
+${sell&&x.status==='Pending'?`<div class="row" style="margin-top:8px"><button class="btn s" onclick="respond('${x.id}','Accepted')">Accept</button><button class="btn d s" onclick="respond('${x.id}','Cancelled')">Decline</button></div>`:''}
+${sell&&x.status==='Accepted'?`<div style="margin-top:8px"><button class="btn o s" onclick="complete('${x.id}')">Confirm sale &amp; transfer ownership</button></div>`:''}
+${!sell&&['Pending','Accepted'].includes(x.status)?`<div style="margin-top:8px"><button class="btn d s" onclick="respond('${x.id}','Cancelled')">Cancel request</button></div>`:''}</div>`}).join('')||'<div class="empty">No requests yet. Browse the marketplace to send one.</div>'}`};
+function respond(id,s){const x=db.enq.find(z=>z.id===id);x.status=s;save();toast('Request '+s.toLowerCase()+'.');render()}
+function complete(id){const x=db.enq.find(z=>z.id===id),l=db.listings.find(z=>z.id===x.lid),g=pg(l.pid);
+if(g.owner!==db.session)return toast('You are not the registered owner of this pigeon.');
+if(l.status!=='OPEN')return toast('This pigeon has already been sold.');
+if(g.status==='LOST'&&!confirm('This pigeon is reported lost. Transfer anyway?'))return;
+const ref='TX-'+Date.now().toString(36).toUpperCase(),prev=g.owner;
+db.ownership.push({id:uid('o'),pid:g.id,prev,next:x.buyer,ref,date:now(),status:'Completed'});
+g.owner=x.buyer;g.status='ACTIVE';l.status='SOLD';x.status='Completed';
+db.enq.forEach(z=>{if(z.lid===l.id&&z.id!==x.id&&['Pending','Accepted'].includes(z.status))z.status='Cancelled'});
+hist(g.id,'Sale','Sold','Ref '+ref);hist(g.id,'Ownership transfer','Ownership transferred','Ref '+ref+' · same Pigeon Code retained');save();toast('Ownership transferred. Pigeon Code unchanged: '+g.code);location.hash='#/pigeon/'+g.code}
+
+R.me=()=>{if(!me())return R.login();const u=me();const n=db.pigeons.filter(p=>p.owner===u.id).length,sold=db.ownership.filter(o=>o.prev===u.id).length,bought=db.ownership.filter(o=>o.next===u.id).length;
+return `<div class="card pad" style="max-width:480px;margin:auto"><h2 style="margin-top:0">${e(u.name)}</h2><div>${e(u.email)} · ${e(u.phone)}</div><div>${e(u.loc)}</div>
+<div class="stats" style="grid-template-columns:repeat(3,1fr);color:var(--ink)"><div style="background:var(--g2)"><b>${n}</b>Pigeons</div><div style="background:var(--g2)"><b>${sold}</b>Sales</div><div style="background:var(--g2)"><b>${bought}</b>Purchases</div></div>
+<p class="note">Your phone number is never shown on public pigeon profiles.</p><div class="row"><button class="btn l" onclick="resetDemo()">Reset demo data</button>${u.role==='admin'?'<a class="btn o" href="#/admin">Admin dashboard</a>':''}<button class="btn d" onclick="logout()">Log out</button></div></div>`};
+function resetDemo(){if(confirm('Reset everything to the demo data?')){db=seed();save();location.hash='#/'}}
+R.admin=()=>{if(!me())return R.login();if(me().role!=='admin')return '<div class="empty">Admin access only.</div>';
+const U=db.users,P=db.pigeons;
+return `<h2 style="margin-top:0">Admin dashboard</h2><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(130px,1fr))">${[['Users',U.length],['Pigeons',P.length],['Verified',P.filter(x=>x.verified).length],['For sale',P.filter(x=>x.status==='FOR SALE').length],['Lost',P.filter(x=>x.status==='LOST').length],['Completed sales',db.ownership.length]].map(a=>`<div class="card pad"><b style="font-size:22px">${a[1]}</b><div class="note">${a[0]}</div></div>`).join('')}</div>
+<h2>Users</h2>${U.map(u=>`<div class="card pad" style="margin-bottom:8px"><div class="row sp"><div><b>${e(u.name)}</b> ${u.role==='admin'?'<span class="badge">Admin</span>':''}${u.suspended?' <span class="badge r">Suspended</span>':''}<div class="note">${e(u.email)} · ${e(u.phone)} · ${e(u.loc)}</div><div class="note">${P.filter(x=>x.owner===u.id).length} pigeons</div></div>
+${u.role==='admin'?'':`<button class="btn s ${u.suspended?'':'d'}" onclick="suspend('${u.id}')">${u.suspended?'Reactivate':'Suspend'}</button>`}</div></div>`).join('')}
+<h2>Pigeons &amp; verification</h2>${P.map(g=>`<div class="card pad" style="margin-bottom:8px"><div class="row sp"><div><a class="code" href="#/pigeon/${g.code}">${g.code}</a> ${st(g.status)}<div class="note">${e(g.breed)} · Ring ${e(g.ring)} · Owner: ${e(user(g.owner)?.name)}</div></div>
+<button class="btn s ${g.verified?'l':''}" onclick="verify('${g.id}')">${g.verified?'Remove verification':'Verify pigeon'}</button></div></div>`).join('')}`};
+function suspend(id){const u=user(id);if(!me()||me().role!=='admin'||u.role==='admin')return;if(!u.suspended&&!confirm('Suspend '+u.name+'?'))return;u.suspended=!u.suspended;if(u.suspended)db.listings.forEach(l=>{if(l.seller===id&&l.status==='OPEN'){l.status='CANCELLED';const g=pg(l.pid);if(g.status==='FOR SALE')g.status='ACTIVE'}});save();toast(u.suspended?'User suspended.':'User reactivated.');render()}
+function verify(id){if(!me()||me().role!=='admin')return;const g=pg(id);g.verified=!g.verified;hist(id,'Verification',g.verified?'Verified by Pigeon Lanka admin':'Verification removed','Admin has checked the registration record');save();toast(g.verified?'Pigeon verified.':'Verification removed.');render()}
+
+render();
+</script></body></html>
